@@ -1,0 +1,66 @@
+body {
+    overflow: hidden;
+    position: relative;
+    left: 700px;
+    top: 100px;
+    margin: 0 auto;
+    background-repeat: no-repeat;
+    background-size: 100vw 100vh;
+    background-image: linear-gradient(to bottom, #006b71, green 90%);
+}
+
+label {
+    color: #1aad86;
+
+}
+
+
+#mostrar {
+    margin-left: 5px;
+    position: relative;
+    bottom: 120px;
+    right: 415px;
+    width: 30px;
+    height: 30px;
+
+}
+
+h1 {
+    color: #1aad86;
+}
+
+
+#alterar {
+    position: absolute;
+    left: 175px;
+    border: none;
+    font-size: 20px;
+
+}
+
+#login {
+    color: #1aad86;
+    text-decoration: none;
+}
+
+#mostrar {
+    position: relative;
+    left: 230px;
+    bottom: 35px;
+    color: #1aad86;
+    cursor: pointer;
+}
+
+section {
+    background-color: white;
+    border-radius: 10px;
+    width: 500px;
+    padding: 20px;
+    box-shadow: 5px 5px 10px;
+    margin: 0px auto;
+    position: relative;
+    justify-content: center;
+    right: 660px;
+    height: 475px;
+
+}
