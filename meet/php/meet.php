@@ -66,7 +66,7 @@ if (isset($_POST['submit'])) {
                 </header>
                 
                 <label for="Nome">Chave:</label>
-                <select class="form-select w-25" name="nome" aria-label="Default select example">
+                <select class="form-select w-25" name="nome" aria-label="Default select example" autofocus>
                     <option selected>Selecione uma chave</option>
                     <option value="W2bK5">W2bK5</option>
                     <option value="Jql@#">Jql@#</option>

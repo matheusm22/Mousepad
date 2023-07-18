@@ -29,7 +29,7 @@ if (isset($_POST['usuario']) || isset($_POST['senha']) || isset($_POST['matricul
          WHERE usuario = '$usuario' ORDER BY id_usuario ASC");
 
        if ($verifica_usuario->num_rows > 0) {
-   
+        
            echo "<label style='color: #f00;'>Erro: Nome de usuário em uso, Tente outro!</label>";
               
        } else {
@@ -56,3 +56,4 @@ if (isset($_POST['usuario']) || isset($_POST['senha']) || isset($_POST['matricul
  }
 } 
 }
+?>

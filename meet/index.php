@@ -70,7 +70,7 @@ if (!empty($_POST['submit'])) {
       // Cria o cookie com duração 7 dias
       setcookie('token', "$header.$payload.$signature", (time() + (7 * 24 * 60 * 60))); //para aqui
 
-      // Permissão de usuários  e redi
+      // Permissão de usuários  e redirecionamento
       if($_SESSION['nivel'] == 2){  // NUNCA COLOQUE UM ISSET AQUI (PS: NUNCA FUNCIONA).
       // Redirecionar o usuário para página do meet
       header("Location: /meet/php/meet.php");

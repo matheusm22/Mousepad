@@ -80,7 +80,6 @@ if (isset($_POST['submit'])) {
     <section>
         <h1>Crie uma nova senha</h1>
         <br>
-        
             <form action="" method="post">
             <label>Matricula: </label> <br>
             <input type="text" name="matricula"  id="matricula" class="form-control  w-25" placeholder="Ex:0000"><br>
