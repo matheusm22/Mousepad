@@ -171,7 +171,7 @@ if (isset($_SESSION['msg'])) {
             <strong>
               <div id="saida">
                 <label>Usuário: </label><br>
-                <input type="text" class="form-control w-100" id="usuario" placeholder="Insira seu usuário" required> 
+                <input type="text" class="form-control w-100" id="usuario" placeholder="Insira seu usuário" required autofocus> 
                 <button type="button" class="btn btn-sm btn-primary" id="balao_user" data-toggle="popover" title="Ex: econet_editora" >?</button>
                 <br>
                 <label>Senha: </label>
