@@ -39,7 +39,7 @@ h1 {
 
 h2 {
     position: relative;
-    top: 30px;
+    top: 10px;
     left: 110px;
     margin-left: 30px;
 }
@@ -95,6 +95,10 @@ button {
 
 }
 
+span{
+    color: red;
+}
+
 label {
     font-size: 24px;
 }
@@ -147,7 +151,7 @@ p {
     justify-content: center;
     align-items: center;
     position: relative;
-    top: 40px;
+    top: 10px;
 }
 
 .modal-header {

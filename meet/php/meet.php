@@ -10,7 +10,7 @@ ob_start();
 include_once 'validar_token.php';
 
 // Chamar a função validar o token, se a função retornar FALSE significa que o token é inválido e acessa o IF
-if(!validarToken()){
+if (!validarToken()) {
     // Criar a mensagem de erro e atribuir para variável global
     $_SESSION['msg'] = "<p style='color: #f00;'>Erro: Necessário realizar o login para acessar a página!</p>";
 
@@ -19,26 +19,34 @@ if(!validarToken()){
 
     // Pausar o processamento da página
     exit();
- }
+}
 
 
+include_once 'config.php';
 
-  
+
 // CÓDIGO ṔHP PARA A FUNCIONALIDADE DO SISTEMA MEET
 
 if (isset($_POST['submit'])) {
 
-    $nome = $_POST['nome'];
+    $chave = $_POST['chave'];
 
-    $nome_filtrado = str_replace(' ', '', $nome);
+    $chave_filtrada = str_replace(' ', '', $chave);
+
+    //USAR EM CASO DE NOVA CHAVE 
+    // $sql = mysqli_query($conexao, "SELECT * FROM tb_links where chave='$chave_filtrada'");
+
+    $sql = mysqli_query($conexao, "SELECT * FROM tb_links where chave='$chave_filtrada'
+     and ultimo_uso <= DATE_SUB(NOW(), INTERVAL 1 DAY)");
+
+    $dia_seguinte = time() + (1 * 24 * 60 * 60);
+    $today = date("Y-m-d H:i:s", $dia_seguinte);
+
+    //   echo $today;
 
 
-    include_once 'config.php';
-
-    $sql = mysqli_query($conexao, "SELECT link_1, link_2 FROM tb_usuarios where chave='$nome_filtrado'");
-    
 }
-  
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -64,10 +72,10 @@ if (isset($_POST['submit'])) {
                 <header>
                     <h1>Link Meet</h1>
                 </header>
-                
-                <label for="Nome">Chave:</label>
-                <select class="form-select w-25" name="nome" aria-label="Default select example" autofocus>
-                    <option selected>Selecione uma chave</option>
+
+                <label for="chave">Chave:</label>
+                <select class="form-select w-25" name="chave" autofocus>
+                    <option Selected>Selecione uma chave</option>
                     <option value="W2bK5">W2bK5</option>
                     <option value="Jql@#">Jql@#</option>
                     <option value="Klu%*">Klu%*</option>
@@ -78,48 +86,72 @@ if (isset($_POST['submit'])) {
                     <option value="CFm48">CFm48</option>
                     <option value="yUf3d">yUf3d</option>
                     <option value="9Uk$K">9Uk$K</option>
+                    <option value="vQ%39">vQ%39</option>
+                    <option value="25s8@">25s8@</option>
+                    <option value="5w^F3">5w^F3</option>
+                    <option value="41Q7m">41Q7m</option>
+                    <option value="r7!04">r7!04</option>
+                    <option value="Rg08!">Rg08!</option>
+                    <option value="53#Y3">53#Y3</option>
+                    <option value="4%Lt6">4%Lt6</option>
+                    <option value="#73Jy">#73Jy</option>
 
                 </select>
                 <br>
-            
-                <button  type="submit" id="gerar"
-                class="btn btn-gerar  btn-outline-primary borda" name="submit">Gerar</button>
+
+                <button type="submit" id="gerar" class="btn btn-gerar  btn-outline-primary borda" name="submit">Gerar</button>
             </div>
+
+
+            <div id="fade" class="hide"></div>
+            <div id="modal" class="hide">
+                <div class="modal-header" value="gerar()">
+                    <h2>Link do meet</h2>
+                    <button id="close-modal">X</button>
+                </div>
+                <div class="modal-body">
+                    <p><strong>Não esqueça de enviar o link para seu contato / T.I!</strong></p>
+
+                    <strong>
+                        <div id="res">
+                            <?php
+                            if ($sql->num_rows == 0) {
+
+                                // Separa as duas partes em um array, explode separada em um array toda vez que encontrar a ocorrencia, no caso ali espaço
+                                $data = explode(' ', $today);
+
+                                $hora = $data[1];
+                                //Espaço na hora de imprimir
+                                $space = ' ';
+
+                                        //'2023-05-26'  Transforma a data em um array também 
+                                $dataCorreta = explode('-',  $data[0]);
+                                //Inverte o array que está [2023,05,26] para [26,05,2023] 
+                                $dataCorreta = array_reverse($dataCorreta); 
+                                // Junta o array com o delimitador / para uma string 
+                                $dataCorreta = implode('/', $dataCorreta);
+
+                                echo "<span color='red'>Chave sendo utilizada! Liberação: " .substr($dataCorreta, 0, 5) . $space. substr($hora, 0, 5). "</span>";
+                            }
+
+                            while ($user_data = mysqli_fetch_assoc($sql)) {
+
+
+                                echo $user_data['link'];
+
+                                $update = mysqli_query($conexao, "UPDATE tb_links SET ultimo_uso = NOW() where chave='$chave_filtrada'");
+                            }
+
+                            ?>
+                        </div>
+                    </strong>
+                    &nbsp;
+                    <button class="btn btn-outline-primary" name="copy" id="copy" onclick="copiarTexto()"><svg xmlns="http://www.w3.org/2000/svg" width="46" height="30" fill="currentColor" class="bi bi-files" viewBox="0 0 16 16">
+                            <path d="M13 0H6a2 2 0 0 0-2 2 2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2 2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm0 13V4a2 2 0 0 0-2-2H5a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1zM3 4a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4z" />
+                        </svg></button>
         </form>
-
-
-        <div id="fade" class="hide"></div>
-        <div id="modal" class="hide">
-            <div class="modal-header" value="gerar()">
-                <h2>Link do meet</h2>
-                <button id="close-modal">X</button>
-            </div>
-            <div class="modal-body">
-                <p><strong>Não esqueça de enviar o link para seu contato / T.I!</strong></p>
-
-                <strong>
-                    <div id="res">
-                        <?php
-                        if ($sql->num_rows == 0) {
-                            echo 'Por favor, selecione chave!';
-                        }
-
-                        while ($user_data = mysqli_fetch_assoc($sql)) {
-                            $links = array($user_data['link_1'], $user_data['link_2']);
-                            $rand_keys = array_rand($links, 2);
-                            echo $links[$rand_keys[rand(0, 1)]];
-                        }
-
-                        ?>
-                    </div>
-                </strong>
-                &nbsp;
-                <button class="btn btn-outline-primary" id="copy" onclick="copiarTexto()"><svg xmlns="http://www.w3.org/2000/svg" width="46" height="30" fill="currentColor" class="bi bi-files" viewBox="0 0 16 16">
-                        <path d="M13 0H6a2 2 0 0 0-2 2 2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2 2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm0 13V4a2 2 0 0 0-2-2H5a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1zM3 4a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4z" />
-                    </svg></button>
-                <br>
-            </div>
-        </div>
+    </div>
+    </div>
     </div>
 
 </body>

@@ -42,9 +42,9 @@ if (!empty($_POST['submit'])) {
       $header = base64_encode($header);
 
       // 7 days; 24 hours; 60 mins; 60secs
-      // $duracao = time() + (7 * 24 * 60 * 60);
+      $duracao = time() + (7 * 24 * 60 * 60);
       // 5 segundos
-      $duracao = time() + (120);
+      // $duracao = time() + (120);
 
       $payload = [
 
