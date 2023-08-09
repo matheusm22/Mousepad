@@ -139,7 +139,8 @@ if (isset($_POST['submit'])) {
 
                                 echo $user_data['link'];
 
-                                $update = mysqli_query($conexao, "UPDATE tb_links SET ultimo_uso = NOW() where chave='$chave_filtrada'");
+                                $update = mysqli_query($conexao, "UPDATE tb_links SET ultimo_uso = NOW()
+                                 where chave='$chave_filtrada'");
                             }
 
                             ?>

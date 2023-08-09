@@ -82,7 +82,7 @@ if (isset($_POST['submit'])) {
         <br>
             <form action="" method="post">
             <label>Matricula: </label> <br>
-            <input type="text" name="matricula"  id="matricula" class="form-control  w-25" placeholder="Ex:0000"><br>
+            <input type="text" name="matricula"  autofocus id="matricula" class="form-control  w-25" placeholder="Ex:0000"><br>
 
             <label>Nova Senha: </label>
             <input type="password" name="senha" id="senha" class="form-control  w-50" placeholder="Mínimo 6 caracteres">
@@ -91,7 +91,7 @@ if (isset($_POST['submit'])) {
             <br>
             <label>Confirmar senha: </label>
             <input type="password" name="confirma" id="confirma" class="form-control  w-50" placeholder="Mínimo 6 caracteres" ><br><br>
-            <input type="submit" name="submit" id='alterar' class="btn btn-outline-success w-25" value="Alterar">
+            <input type="submit" name="submit" id='alterar'value="Alterar">
             </form>
 
         <!-- Fim do formulário cadastrar usuário -->

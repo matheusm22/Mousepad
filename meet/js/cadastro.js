@@ -28,32 +28,17 @@ $(function() {
     });
   });
 
-//  JS do modal de cadastro
-const openModalButton = document.querySelector('#open-modal');
-const closeModalButton = document.querySelector('#close-modal');
-const modal = document.querySelector('#modal');
-const fade = document.querySelector('#fade');
-
-const toggleModal = () => {
-   [modal, fade].forEach((el) => el.classList.toggle("hide"));
-
-};
-
-[openModalButton,closeModalButton, fade].forEach((el) => {
-   el.addEventListener('click', () => toggleModal());
-});
-
 // Envia os dados para cadastrar.php via ajax
 
 $(document).ready(function() {
 
-    $("#btnEnviar").click(()=> {
+    $("#adicionar").click(()=> {
        $.ajax({
             url: "/meet/php/cadastrar.php",
             type: "POST",
             data: {
-                usuario:   $("#usuario").val(),
-                senha:     $("#senha").val(),
+                usuario:   $("#cad_usuario").val(),
+                senha:     $("#cad_senha").val(),
                 matricula: $("#matricula").val()
             },
             success: (resultado)=> {

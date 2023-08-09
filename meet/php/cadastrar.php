@@ -41,7 +41,7 @@ if (isset($_POST['usuario']) || isset($_POST['senha']) || isset($_POST['matricul
             $matricula = $_POST['matricula'];
 
               $insert = mysqli_query($conexao, "INSERT INTO tb_acessos(usuario,senha,matricula, ativo, nivel) 
-              VALUES ('$usuario', '$senha','$matricula', 'Sim', 1)");
+              VALUES ('$usuario', '$senha','$matricula', 'Sim', 2)");
 
 
         $sql = mysqli_query($conexao, "SELECT * FROM tb_acessos WHERE usuario = '$usuario' ORDER BY id_usuario ASC");

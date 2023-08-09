@@ -42,9 +42,9 @@ if (!empty($_POST['submit'])) {
       $header = base64_encode($header);
 
       // 7 days; 24 hours; 60 mins; 60secs
-      $duracao = time() + (7 * 24 * 60 * 60);
-      // 5 segundos
-      // $duracao = time() + (120);
+      // $duracao = time() + (7 * 24 * 60 * 60);
+      // 5 minutos
+      $duracao = time() + (300);
 
       $payload = [
 
@@ -77,7 +77,7 @@ if (!empty($_POST['submit'])) {
      
       }
       else{
-        $_SESSION['msg'] = "<p style='color: #f00;'>Erro: Usuário ou senha inválida!</p>";
+        $_SESSION['msg'] = "<p style='color: #f00;'>Erro: Usuário sem pemissão!</p>";
       }
     } else {
       // Criar a mensagem de erro e atribuir para variável global "msg"  -- ERRO INPUT EM BRANCO
@@ -105,98 +105,82 @@ if (isset($_SESSION['msg'])) {
   unset($_SESSION['msg']);
 }
 
+
+
+
 ?>
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
-  <link rel="shortcut icon" href="/meet/css/download.ico" type="image/x-icon">
-  <link rel="stylesheet" href="/meet/css/login.css">
-  <title>Link Meet - ECONET</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/meet/css/login.css">
+    <link rel="shortcut icon" href="/meet/css/download.ico" type="image/x-icon">
+
+    <title>Link Meet ECONET</title>
 </head>
 
 <body>
-  <section class="vh-100">
-    <div class="container py-5 h-100">
-      <div class="row d-flex align-items-center justify-content-center h-100">
-        <div class="col-md-8 col-lg-7 col-xl-6">
-          <img src="/meet/css/econet.webp" class="img-fluid" alt="logo econet">
+  <div id="saida"></div>
+    <h2>Link Meet</h2>
+    <div class="container" id="container">
+        <div class="form-container sign-up-container">
+            <form>
+                <h1>Crie seu Usuário</h1>
+                <div class="social-container">
+                </div>
+                <span>Preencha os campos abaixo:</span>
+                <input type="text" id="matricula" name="matricula" placeholder="Matricula" />
+                <input type="text" id="cad_usuario" name="usuario" placeholder="Usuário" />
+                <input type="password" id="cad_senha" name="senha" placeholder="Senha" />
+                <br>
+                <button id="adicionar" type="button">Adicionar</button>
+            </form>
         </div>
-        <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
-          <!-- Início do formulário de login -->
-          <form method="POST" action="">
-            <h3>Login</h3>
-            <br>
-            <?php
-            $user = "";
-            if (isset($usuario)) {
-              $user = $usuario;
-            }
-            ?>
-            <div class="form-outline mb-4">
-              <label>Usuário: </label><br>
-              <input type="text" name="usuario" id="txtu" class="form-control  w-75" placeholder="Digite o usuário" value="<?php echo $user; ?>">
+        <div class="form-container sign-in-container">
+            <form action="" method="post">
+                <h1>Login</h1>
+                <div class="social-container">
+                </div>
+                <?php
+                $user = "";
+                if (isset($usuario)) {
+                    $user = $usuario;
+                }
+
+                $password = "";
+                if (isset($senha)) {
+                  $password = $senha;
+                }
+                ?>
+                <input type="text" name="usuario" id="usuario" autofocus placeholder="Usuário" value="<?php echo $user; ?>">
+                <input type="password" name="senha"  id="senha" placeholder="Senha" value="<?php echo $password; ?>">
+                <a href="../meet/php/update.php">Esqueceu a senha?</a>
+                <input type="submit" name="submit"  id='entrar' value="Entrar"> 
+            </form>
+        </div>
+        <div class="overlay-container">
+            <div class="overlay">
+                <div class="overlay-panel overlay-left">
+                    <h1>Bem vindo de volta!</h1>
+                    <p>Para se manter conectado conosco, faça o login com suas informações pessoais</p>
+                    <button class="ghost" id="signIn">Entrar</button>
+                </div>
+                <div class="overlay-panel overlay-right">
+                    <h1>Olá amigo!</h1>
+                    <p>Introduza os seus dados pessoais e comece a viajar conosco</p>
+                    <button class="ghost" id="signUp">Adicionar</button>
+                </div>
             </div>
-            <?php
-            $password = "";
-            if (isset($senha)) {
-              $password = $senha;
-            }
-            ?>
-            <div class="form-outline mb-4">
-              <label>Senha: </label>
-              <input type="password" name="senha" id="txts" class="form-control  w-75" placeholder="Digite a senha" value="<?php echo $password; ?>">
-              <img src="/meet/css/eye-off.svg" id="mostrar">
-              <br>
-
-              <input type="submit" name="submit"  id='acessar' class="btn btn-outline-success w-25" value="Acessar"> 
-          </form>
-          <a href="/meet/php/update.php" class="btn btn-outline-primary" id='esq_senha'>Esqueceu a senha?</a>
-          <br>
-          <!-- Fim do formulário de login -->
-
         </div>
-        <button id="open-modal" class=" btn btn-outline-primary w-25" name="Cadastrar">Cadastro</button>
-
-        <div id="fade" class="hide"></div>
-        <div id="modal" class="hide">
-          <div class="modal-header" value="gerar()">
-            <h2>Cadastre-se</h2>
-            <button id="close-modal">X</button>
-          </div>
-
-          <div class=" modal-body">
-            <strong>
-              <div id="saida">
-                <label>Usuário: </label><br>
-                <input type="text" class="form-control w-100" id="usuario" placeholder="Insira seu usuário" required autofocus> 
-                <button type="button" class="btn btn-sm btn-primary" id="balao_user" data-toggle="popover" title="Ex: econet_editora" >?</button>
-                <br>
-                <label>Senha: </label>
-                <input type="password" class="form-control w-100" id="senha"
-                 placeholder="Crie sua senha" required>
-                <img src="/meet/css/eye-off.svg" id="mostrar2">
-                <button type="button" class="btn btn-sm btn-primary" id="balao_senha" data-toggle="popover" title="Minimo 6 caracteres!" >?</button>
-                <br>
-
-                Matricula: <input type="text" class="form-control w-50" id="matricula" placeholder="Ex:0000" required>
-                <button type="button" class="btn btn-sm btn-primary" id="balao_matricula" data-toggle="popover" title="Insira somente 4 caracteres!" >?</button>
-                <br>
-
-                <button id="btnEnviar" class=" btn btn-info" type="button">Cadastrar</button> &nbsp; &nbsp;
-
-              </div>
-              <br>
-</body>
-</div>
-</div>
-</div>
-</section>
+    </div>
+ 
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-<script src="/meet/js/login.js"></script>
 <script src="/meet/js/cadastro.js"></script>
+<script src="/meet/js/login.js"></script>
+
+
 
 </html>
