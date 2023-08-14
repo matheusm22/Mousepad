@@ -121,8 +121,6 @@ if (isset($_POST['submit'])) {
                                 $data = explode(' ', $today);
 
                                 $hora = $data[1];
-                                //Espaço na hora de imprimir
-                                $space = ' ';
 
                                         //'2023-05-26'  Transforma a data em um array também 
                                 $dataCorreta = explode('-',  $data[0]);
@@ -131,7 +129,8 @@ if (isset($_POST['submit'])) {
                                 // Junta o array com o delimitador / para uma string 
                                 $dataCorreta = implode('/', $dataCorreta);
 
-                                echo "<span color='red'>Chave sendo utilizada! Liberação: " .substr($dataCorreta, 0, 5) . $space. substr($hora, 0, 5). "</span>";
+                                echo "<span color='red'>Chave sendo utilizada! <br>
+                                Liberação: " .substr($dataCorreta, 0, 5) . ' - '. substr($hora, 0, 5). "</span>";
                             }
 
                             while ($user_data = mysqli_fetch_assoc($sql)) {
